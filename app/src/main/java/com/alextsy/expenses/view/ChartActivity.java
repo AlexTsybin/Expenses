@@ -1,4 +1,6 @@
 package com.alextsy.expenses.view;
 
-public class ChartActivity {
+import android.support.v7.app.AppCompatActivity;
+
+public class ChartActivity extends AppCompatActivity {
 }
