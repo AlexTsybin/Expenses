@@ -1,10 +1,11 @@
 package com.alextsy.expenses.view;
 
-import android.content.Context;
-import android.net.Uri;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,22 +17,24 @@ import com.alextsy.expenses.presenter.PresenterMvp;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements ViewMvp.View, ChartFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements ViewMvp.View {
 
     private static final String TAG = "MainActivity";
 
     private PresenterMvp.Presenter mPresenter;
 
     @BindView(R.id.numberField) TextView numberField;
+    @BindView(R.id.day_spent_amount) TextView daySpentAmount;
+    @BindView(R.id.month_spent_amount) TextView monthSpentAmount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
         mPresenter = new MainPresenter(this);
-        Log.d(TAG, "onCreate()");
+        mPresenter.onUpdateDaySpent();
+        mPresenter.onUpdateMonthSpent();
     }
 
     public boolean priceIsEmpty() {
@@ -42,11 +45,6 @@ public class MainActivity extends AppCompatActivity implements ViewMvp.View, Cha
     }
     public boolean startsWithZero() {
         return numberField.getText().toString().startsWith("0");
-    }
-
-    public void onCategory(View view) {
-        Button categoryBtn = (Button) view;
-        mPresenter.onCategoryButtonWasClicked(this, categoryBtn);
     }
 
     // Add number to price
@@ -75,10 +73,20 @@ public class MainActivity extends AppCompatActivity implements ViewMvp.View, Cha
         }
     }
 
+    public void onCategory(View view) {
+        Button categoryBtn = (Button) view;
+        mPresenter.onCategoryButtonWasClicked(this, categoryBtn);
+        numberField.setText("");
+    }
+
     @Override
-    public void showText(String message) {
-        numberField.setText(message);
-        Log.d(TAG, "showMessage()");
+    public void showDaySpent(String daySpent) {
+        daySpentAmount.setText(daySpent);
+    }
+
+    @Override
+    public void showMonthSpent(String monthSpent) {
+        monthSpentAmount.setText(monthSpent);
     }
 
     @Override
@@ -93,12 +101,28 @@ public class MainActivity extends AppCompatActivity implements ViewMvp.View, Cha
     protected void onDestroy() {
         super.onDestroy();
         mPresenter.onDestroy();
-        Log.d(TAG, "onDestroy()");
+        Log.d(TAG, "MainActivity.onDestroy()");
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_data:
+                Intent intent_data = new Intent(MainActivity.this, DataActivity.class);
+                startActivity(intent_data);
+                return true;
+            case R.id.action_chart:
+                Intent intent_chart = new Intent(MainActivity.this, ChartActivity.class);
+                startActivity(intent_chart);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     // Disabled function

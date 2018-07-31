@@ -3,7 +3,6 @@ package com.alextsy.expenses.presenter;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -12,12 +11,11 @@ import com.alextsy.expenses.model.AppDatabase;
 import com.alextsy.expenses.model.Expense;
 import com.alextsy.expenses.model.MainRepository;
 import com.alextsy.expenses.model.RepositoryMvp;
-import com.alextsy.expenses.view.MainActivity;
-import com.alextsy.expenses.view.RowActivity;
+import com.alextsy.expenses.view.DataActivity;
 import com.alextsy.expenses.view.ViewMvp;
 
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 public class MainPresenter implements PresenterMvp.Presenter {
@@ -29,14 +27,15 @@ public class MainPresenter implements PresenterMvp.Presenter {
     private ViewMvp.View mView;
 
     AppDatabase db = App.getInstance().getDatabaseInstance();
-    private String message;
+    private String spentDayAmount;
+    private String spentMonthAmount;
 
     public Context context;
 
     public MainPresenter(ViewMvp.View mView) {
         this.mView = mView;
         this.mRepository = new MainRepository();
-        Log.d(TAG, "Constructor");
+        Log.d(TAG, "MainPresenter.Constructor()");
     }
 
     public String getDate() {
@@ -46,16 +45,36 @@ public class MainPresenter implements PresenterMvp.Presenter {
     }
 
     // View calls that button was clicked
-    public void onButtonWasClicked(Context context) {
-//        message = mRepository.loadMessage();
-//        mView.showText(message);
-//        Log.d(TAG, "onButtonWasClicked()");
+    public void updateDaySpentAmount() {
+        spentDayAmount = mRepository.getDaySpent();
+
+        if (spentDayAmount != null) {
+            mView.showDaySpent(getMoney(spentDayAmount));
+        } else {
+            mView.showDaySpent("No purchases");
+        }
+        Log.d(TAG, "MainPresenter.updateDaySpentAmount()");
+    }
+
+    public void updateMonthSpentAmount() {
+        spentMonthAmount = mRepository.getMonthSpent();
+        if (spentMonthAmount != null) {
+            mView.showMonthSpent(getMoney(spentMonthAmount));
+        } else {
+            mView.showMonthSpent("No purchases");
+        }
+    }
+
+    public String getMoney(String amount) {
+        NumberFormat format = NumberFormat.getCurrencyInstance();
+        format.setMinimumFractionDigits(0);
+        return format.format(Long.parseLong(amount));
     }
 
     @Override
     public void onDestroy() {
         // Unsubscribe in this method
-        Log.d(TAG, "onDestroy()");
+        Log.d(TAG, "MainPresenter.onDestroy()");
     }
 
     @Override
@@ -64,9 +83,23 @@ public class MainPresenter implements PresenterMvp.Presenter {
             Toast.makeText(context, "Enter the price!", Toast.LENGTH_SHORT).show();
             return;
         }
+
         Expense exp = new Expense(getDate(), mView.getAmount(), categoryBtn.getText().toString());
         db.expenseDao().insert(exp);
-        context.startActivity(new Intent(context, RowActivity.class));
+
+        updateDaySpentAmount();
+
+        context.startActivity(new Intent(context, DataActivity.class));
+    }
+
+    @Override
+    public void onUpdateDaySpent() {
+        updateDaySpentAmount();
+    }
+
+    @Override
+    public void onUpdateMonthSpent() {
+        updateMonthSpentAmount();
     }
 
 }

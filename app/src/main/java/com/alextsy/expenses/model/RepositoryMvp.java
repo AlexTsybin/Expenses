@@ -3,7 +3,8 @@ package com.alextsy.expenses.model;
 public interface RepositoryMvp {
 
     interface Repository {
-        String loadMessage();
+        String getDaySpent();
+        String getMonthSpent();
     }
 
 }

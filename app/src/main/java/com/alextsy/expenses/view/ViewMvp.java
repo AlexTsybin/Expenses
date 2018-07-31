@@ -3,7 +3,8 @@ package com.alextsy.expenses.view;
 public interface ViewMvp {
 
     interface View {
-        void showText(String message);
+        void showDaySpent(String message);
+        void showMonthSpent(String monthSpent);
         String getAmount();
     }
 

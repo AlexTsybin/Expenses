@@ -32,7 +32,7 @@ public class ExpensesRecyclerAdapter extends RecyclerView.Adapter<ExpensesRecycl
 
     @Override
     public ExpensesRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.db_row, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_list_item, parent, false);
         return new ViewHolder(view);
     }
 

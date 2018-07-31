@@ -12,6 +12,8 @@ public interface PresenterMvp {
         void onDestroy();
 
         void onCategoryButtonWasClicked(Context context, Button categoryBtn);
+        void onUpdateDaySpent();
+        void onUpdateMonthSpent();
     }
 
 }

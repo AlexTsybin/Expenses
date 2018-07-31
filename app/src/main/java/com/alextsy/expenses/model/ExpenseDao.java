@@ -16,6 +16,12 @@ public interface ExpenseDao {
     @Query("SELECT * FROM expense")
     List<Expense> getAllExpenses();
 
+    @Query("SELECT SUM(amount) FROM expense WHERE date = :currentDate")
+    String getDaySpent(String currentDate);
+
+    @Query("SELECT SUM(amount) FROM expense WHERE date BETWEEN :firstDay AND :lastDay")
+    String getMonthSpent(String firstDay, String lastDay);
+
     @Query("DELETE FROM expense")
     int rowsDeleted();
 
