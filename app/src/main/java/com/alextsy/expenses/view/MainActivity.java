@@ -17,11 +17,11 @@ import com.alextsy.expenses.presenter.PresenterMvp;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements ViewMvp.View {
+public class MainActivity extends AppCompatActivity implements ViewMvp.ViewMain {
 
     private static final String TAG = "MainActivity";
 
-    private PresenterMvp.Presenter mPresenter;
+    private PresenterMvp.PresenterMain mPresenterMain;
 
     @BindView(R.id.numberField) TextView numberField;
     @BindView(R.id.day_spent_amount) TextView daySpentAmount;
@@ -32,11 +32,12 @@ public class MainActivity extends AppCompatActivity implements ViewMvp.View {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        mPresenter = new MainPresenter(this);
-        mPresenter.onUpdateDaySpent();
-        mPresenter.onUpdateMonthSpent();
+        mPresenterMain = new MainPresenter(this);
+        mPresenterMain.onUpdateDaySpent();
+        mPresenterMain.onUpdateMonthSpent();
     }
 
+    // Supporting methods
     public boolean priceIsEmpty() {
         return numberField.getText().toString().isEmpty();
     }
@@ -47,35 +48,61 @@ public class MainActivity extends AppCompatActivity implements ViewMvp.View {
         return numberField.getText().toString().startsWith("0");
     }
 
-    // Add number to price
+    // Add number
+    //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+    // Number button was clicked
     public void onAddNumber(View view){
         Button numberBtn = (Button) view;
-        if (fieldLength() == 1 && startsWithZero()) {
-            numberField.setText(numberBtn.getText());
-        } else {
-            numberField.append(numberBtn.getText());
-        }
+        String number = (String) numberBtn.getText();
+        mPresenterMain.onAddButtonWasClicked(this, number);
     }
 
+    // Set number to price if zero
+    public void setNumber(String number) {
+        numberField.setText(number);
+    }
+
+    // Append number to price
+    public void appendNumber(String number) {
+        numberField.append(number);
+    }
+    //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+    // Add zero
+    //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+    // Zero number was clicked
+    public void onAddZero(View view) {
+        mPresenterMain.onZeroButtonWasClicked(this);
+    }
+
+    public void addZero(String zero) {
+        numberField.append(zero);
+    }
+    //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+    // Delete number
+    //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+    // Delete (c) number was clicked
     public void onDeleteNumber(View view) {
-        if (priceIsEmpty()) {
-            return;
-        }
+        mPresenterMain.onDeleteButtonWasClicked(this);
+    }
+
+    // Remove number from price
+    public void deleteNumber() {
         numberField.setText(numberField.getText().subSequence(0, fieldLength() - 1));
     }
+    //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
-    public void onAddZero(View view) {
-        Button button = (Button) view;
-        if (startsWithZero() && fieldLength() == 1) {
-            return;
-        } else {
-            numberField.append(button.getText());
-        }
-    }
-
+    // Category choosing
+    //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+    // Category choosing
     public void onCategory(View view) {
         Button categoryBtn = (Button) view;
-        mPresenter.onCategoryButtonWasClicked(this, categoryBtn);
+        mPresenterMain.onCategoryButtonWasClicked(this, categoryBtn);
+    }
+
+    @Override
+    public void clearPrice() {
         numberField.setText("");
     }
 
@@ -88,6 +115,7 @@ public class MainActivity extends AppCompatActivity implements ViewMvp.View {
     public void showMonthSpent(String monthSpent) {
         monthSpentAmount.setText(monthSpent);
     }
+    //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
     @Override
     public String getAmount() {
@@ -100,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements ViewMvp.View {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mPresenter.onDestroy();
+        mPresenterMain.onDestroy();
         Log.d(TAG, "MainActivity.onDestroy()");
     }
 
@@ -126,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements ViewMvp.View {
     }
 
     // Disabled function
-//    public void onAddDot(View view) {
+//    public void onAddDot(ViewMain view) {
 //        Button button = (Button) view;
 //        if (priceIsEmpty()) {
 //            numberField.append("0" + button.getText());

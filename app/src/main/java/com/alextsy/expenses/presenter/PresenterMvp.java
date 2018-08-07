@@ -1,19 +1,26 @@
 package com.alextsy.expenses.presenter;
 
 import android.content.Context;
-import android.view.View;
 import android.widget.Button;
-
-import com.alextsy.expenses.view.MainActivity;
 
 public interface PresenterMvp {
 
-    interface Presenter {
+    interface PresenterMain {
         void onDestroy();
 
         void onCategoryButtonWasClicked(Context context, Button categoryBtn);
+        void onDeleteButtonWasClicked(Context context);
+        void onAddButtonWasClicked(Context context, String number);
+        void onZeroButtonWasClicked(Context context);
         void onUpdateDaySpent();
         void onUpdateMonthSpent();
+    }
+
+    interface PresenterData {
+        void onCreate(Context context);
+        void onResume(Context context);
+        void onMenuDeleteClick(Context context);
+        void onMenuAddclick(Context context);
     }
 
 }

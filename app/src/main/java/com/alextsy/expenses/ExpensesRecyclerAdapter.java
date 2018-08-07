@@ -9,12 +9,8 @@ import android.widget.TextView;
 
 import com.alextsy.expenses.model.Expense;
 
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.Currency;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,7 +19,6 @@ public class ExpensesRecyclerAdapter extends RecyclerView.Adapter<ExpensesRecycl
 
     private List<Expense> expenses;
     private Context context;
-    private Locale locale;
 
     public ExpensesRecyclerAdapter(Context context, List<Expense> expenses) {
         this.context = context;

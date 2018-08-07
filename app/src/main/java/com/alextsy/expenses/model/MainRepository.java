@@ -1,12 +1,10 @@
 package com.alextsy.expenses.model;
 
-import android.os.Build;
 import android.util.Log;
 
 import com.alextsy.expenses.App;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 

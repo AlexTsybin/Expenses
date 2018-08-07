@@ -1,6 +1,5 @@
 package com.alextsy.expenses.view;
 
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,20 +9,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.alextsy.expenses.App;
 import com.alextsy.expenses.ExpensesRecyclerAdapter;
 import com.alextsy.expenses.R;
-import com.alextsy.expenses.model.AppDatabase;
+import com.alextsy.expenses.presenter.DataPresenter;
+import com.alextsy.expenses.presenter.PresenterMvp;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DataActivity extends AppCompatActivity {
+public class DataActivity extends AppCompatActivity implements ViewMvp.ViewData {
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
-    private AppDatabase db;
+    private PresenterMvp.PresenterData mPresenterData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,15 +33,19 @@ public class DataActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_rows);
         ButterKnife.bind(this);
+        mPresenterData = new DataPresenter(this);
 
+        mPresenterData.onCreate(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
-        db = App.getInstance().getDatabaseInstance();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        ExpensesRecyclerAdapter recyclerAdapter = new ExpensesRecyclerAdapter(this, db.expenseDao().getAllExpenses());
+        mPresenterData.onResume(this);
+    }
+
+    public void resume(ExpensesRecyclerAdapter recyclerAdapter) {
         recyclerView.setAdapter(recyclerAdapter);
     }
 
@@ -56,18 +59,19 @@ public class DataActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add: {
-                finish();
-//                startActivity(new Intent(DataActivity.this, MainActivity.class));
+                mPresenterData.onMenuAddclick(this);
                 break;
             }
-            case R.id.action_delete: {
-                int d = db.expenseDao().rowsDeleted();
-                Toast.makeText(this, "Удалено " + d + " строк", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(DataActivity.this, MainActivity.class));
+            case R.id.action_delete_all: {
+                mPresenterData.onMenuDeleteClick(this);
                 break;
             }
         }
         return false;
+    }
+
+    public void actionDeleteAll(int rows) {
+        Toast.makeText(this, "Удалено " + rows + " строк", Toast.LENGTH_LONG).show();
     }
 
 }
