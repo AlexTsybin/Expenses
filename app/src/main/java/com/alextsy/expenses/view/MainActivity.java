@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements ViewMvp.ViewMain 
             }
         };
         mCategoryList.setOnItemClickListener(itemListener);
-
     }
 
     // Supporting methods
