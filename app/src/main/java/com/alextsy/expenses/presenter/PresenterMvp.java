@@ -1,14 +1,14 @@
 package com.alextsy.expenses.presenter;
 
 import android.content.Context;
-import android.widget.Button;
+import android.view.View;
 
 public interface PresenterMvp {
 
     interface PresenterMain {
         void onDestroy();
 
-        void onCategoryButtonWasClicked(Context context, Button categoryBtn);
+        void onCategoryButtonWasClicked(Context context, View view, String categoryName);
         void onDeleteButtonWasClicked(Context context);
         void onAddButtonWasClicked(Context context, String number);
         void onZeroButtonWasClicked(Context context);

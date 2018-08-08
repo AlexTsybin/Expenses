@@ -3,7 +3,7 @@ package com.alextsy.expenses.presenter;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import android.widget.Button;
+import android.view.View;
 import android.widget.Toast;
 
 import com.alextsy.expenses.App;
@@ -67,13 +67,13 @@ public class MainPresenter implements PresenterMvp.PresenterMain {
     }
 
     @Override
-    public void onCategoryButtonWasClicked(Context context, Button categoryBtn) {
+    public void onCategoryButtonWasClicked(Context context, View view, String categoryName) {
         if (mViewMain.getAmount().equals(String.valueOf(0))) {
             Toast.makeText(context, "Enter the price!", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        Expense exp = new Expense(getDate(), mViewMain.getAmount(), categoryBtn.getText().toString());
+        Expense exp = new Expense(getDate(), mViewMain.getAmount(), firstUpperCase(categoryName.toLowerCase()));
         db.expenseDao().insert(exp);
 
         updateDaySpentAmount();
@@ -99,6 +99,11 @@ public class MainPresenter implements PresenterMvp.PresenterMain {
         NumberFormat format = NumberFormat.getCurrencyInstance();
         format.setMinimumFractionDigits(0);
         return format.format(Long.parseLong(amount));
+    }
+
+    public String firstUpperCase(String word){
+        if(word == null || word.isEmpty()) return "";
+        return word.substring(0, 1).toUpperCase() + word.substring(1);
     }
     //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 

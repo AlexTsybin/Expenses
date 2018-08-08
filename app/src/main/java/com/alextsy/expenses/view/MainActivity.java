@@ -7,8 +7,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alextsy.expenses.R;
 import com.alextsy.expenses.presenter.MainPresenter;
@@ -26,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements ViewMvp.ViewMain 
     @BindView(R.id.numberField) TextView numberField;
     @BindView(R.id.day_spent_amount) TextView daySpentAmount;
     @BindView(R.id.month_spent_amount) TextView monthSpentAmount;
+    @BindView(R.id.gridview) GridView mCategoryList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +40,19 @@ public class MainActivity extends AppCompatActivity implements ViewMvp.ViewMain 
         mPresenterMain = new MainPresenter(this);
         mPresenterMain.onUpdateDaySpent();
         mPresenterMain.onUpdateMonthSpent();
+
+        String[] categories = getResources().getStringArray(R.array.categories);
+        // создаем адаптер
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.grid_item_row, categories);
+        mCategoryList.setAdapter(adapter);
+        AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mPresenterMain.onCategoryButtonWasClicked(getApplicationContext(), view, parent.getItemAtPosition(position).toString());
+            }
+        };
+        mCategoryList.setOnItemClickListener(itemListener);
+
     }
 
     // Supporting methods
@@ -96,10 +114,10 @@ public class MainActivity extends AppCompatActivity implements ViewMvp.ViewMain 
     // Category choosing
     //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     // Category choosing
-    public void onCategory(View view) {
-        Button categoryBtn = (Button) view;
-        mPresenterMain.onCategoryButtonWasClicked(this, categoryBtn);
-    }
+//    public void onCategory(View view) {
+//        Button categoryBtn = (Button) view;
+//        mPresenterMain.onCategoryButtonWasClicked(this, categoryBtn);
+//    }
 
     @Override
     public void clearPrice() {
