@@ -20,7 +20,7 @@ public interface PresenterMvp {
         void onCreate(Context context);
         void onResume(Context context);
         void onMenuDeleteClick(Context context);
-        void onMenuAddclick(Context context);
+        void onMenuAddClick(Context context);
     }
 
 }

@@ -2,8 +2,13 @@ package com.alextsy.expenses.view;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
+import com.alextsy.expenses.ExpensesRecyclerAdapter;
 import com.alextsy.expenses.R;
+import com.alextsy.expenses.presenter.DataPresenter;
+import com.alextsy.expenses.presenter.PresenterMvp;
 
 import java.util.ArrayList;
 

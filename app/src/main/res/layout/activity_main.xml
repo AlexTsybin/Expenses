@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:layout_editor_absoluteY="81dp">
-
     <TextView
         android:id="@+id/numberField"
         android:layout_width="wrap_content"
@@ -19,14 +18,12 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_end"
         app:layout_constraintStart_toStartOf="@+id/guideline_vertical_start"
         app:layout_constraintTop_toTopOf="parent" />
-
     <android.support.constraint.Guideline
         android:id="@+id/guideline_vertical_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.04" />
-
     <Button
         android:id="@+id/button"
         style="?android:attr/borderlessButtonStyle"
@@ -34,12 +31,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:onClick="onAddNumber"
-        android:text="1"
+        android:text="@string/one_button"
         app:layout_constraintEnd_toStartOf="@+id/button2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/guideline_vertical_start"
         app:layout_constraintTop_toBottomOf="@+id/numberField" />
-
     <Button
         android:id="@+id/button2"
         style="?android:attr/borderlessButtonStyle"
@@ -47,12 +43,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:onClick="onAddNumber"
-        android:text="2"
+        android:text="@string/two_button"
         app:layout_constraintEnd_toStartOf="@+id/button3"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/button"
         app:layout_constraintTop_toBottomOf="@+id/numberField" />
-
     <Button
         android:id="@+id/button3"
         style="?android:attr/borderlessButtonStyle"
@@ -60,120 +55,110 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:onClick="onAddNumber"
-        android:text="3"
+        android:text="@string/three_button"
         app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_end"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/button2"
         app:layout_constraintTop_toBottomOf="@+id/numberField" />
-
     <Button
         android:id="@+id/button4"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onAddNumber"
-        android:text="4"
+        android:text="@string/four_button"
         app:layout_constraintEnd_toStartOf="@+id/button5"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/guideline_vertical_start"
         app:layout_constraintTop_toBottomOf="@+id/button" />
-
     <Button
         android:id="@+id/button5"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onAddNumber"
-        android:text="5"
+        android:text="@string/five_button"
         app:layout_constraintEnd_toStartOf="@+id/button6"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/button4"
         app:layout_constraintTop_toBottomOf="@+id/button2" />
-
     <Button
         android:id="@+id/button6"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onAddNumber"
-        android:text="6"
+        android:text="@string/six_button"
         app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_end"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/button5"
         app:layout_constraintTop_toBottomOf="@+id/button3" />
-
     <Button
         android:id="@+id/button7"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onAddNumber"
-        android:text="7"
+        android:text="@string/seven_button"
         app:layout_constraintEnd_toStartOf="@+id/button8"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/guideline_vertical_start"
         app:layout_constraintTop_toBottomOf="@+id/button4" />
-
     <Button
         android:id="@+id/button8"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onAddNumber"
-        android:text="8"
+        android:text="@string/eight_button"
         app:layout_constraintEnd_toStartOf="@+id/button9"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/button7"
         app:layout_constraintTop_toBottomOf="@+id/button5" />
-
     <Button
         android:id="@+id/button9"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onAddNumber"
-        android:text="9"
+        android:text="@string/nine_button"
         app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_end"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/button8"
         app:layout_constraintTop_toBottomOf="@+id/button6" />
-
     <Button
         android:id="@+id/button10"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onAddZero"
-        android:text="0"
+        android:text="@string/zero_button"
         app:layout_constraintEnd_toStartOf="@+id/button17"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/button18"
         app:layout_constraintTop_toBottomOf="@+id/button8" />
-
     <Button
         android:id="@+id/button18"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="."
+        android:text="@string/dot_button"
         app:layout_constraintEnd_toStartOf="@+id/button10"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/guideline_vertical_start"
         app:layout_constraintTop_toBottomOf="@+id/button7" />
-
     <Button
         android:id="@+id/button17"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onDeleteNumber"
+        android:text="@string/clear_button"
         android:textColor="#ff0000"
-        android:text="C"
         app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_end"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/button10"
         app:layout_constraintTop_toBottomOf="@+id/button9" />
-
     <View
         android:id="@+id/divider"
         android:layout_width="0dp"
@@ -185,21 +170,19 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_end"
         app:layout_constraintStart_toStartOf="@+id/guideline_vertical_start"
         app:layout_constraintTop_toBottomOf="@+id/button10" />
-
     <GridView
         android:id="@+id/gridview"
         android:layout_width="340dp"
         android:layout_height="167dp"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:numColumns="3"
+        android:paddingEnd="15dp"
+        android:paddingStart="15dp"
         app:layout_constraintBottom_toTopOf="@+id/divider2"
         app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_end"
         app:layout_constraintStart_toStartOf="@+id/guideline_vertical_start"
         app:layout_constraintTop_toBottomOf="@+id/divider" />
-
     <View
         android:id="@+id/divider2"
         android:layout_width="0dp"
@@ -211,7 +194,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_end"
         app:layout_constraintStart_toStartOf="@+id/guideline_vertical_start" />
-
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
@@ -219,51 +201,45 @@
         android:orientation="vertical"
         android:visibility="visible"
         app:layout_constraintGuide_percent="0.5" />
-
     <TextView
         android:id="@+id/spent_today_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="16dp"
-        android:text="Spent today:"
+        android:text="@string/spent_today"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/divider2" />
-
     <TextView
         android:id="@+id/day_spent_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:maxLines="1"
-        android:text="0"
+        android:text="@string/zero_button"
         app:layout_constraintBaseline_toBaselineOf="@+id/spent_today_tv"
         app:layout_constraintStart_toStartOf="@+id/guideline" />
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
-        android:text="Spent this month:"
+        android:text="@string/spent_this_month"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/spent_today_tv" />
-
     <TextView
         android:id="@+id/month_spent_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="0"
+        android:text="@string/zero_button"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView"
         app:layout_constraintStart_toStartOf="@+id/guideline" />
-
     <android.support.constraint.Guideline
         android:id="@+id/guideline_vertical_end"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.96" />
-
 </android.support.constraint.ConstraintLayout>

@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.alextsy.expenses.App;
 import com.alextsy.expenses.R;
+import com.alextsy.expenses.Utils.ConvertDate;
 import com.alextsy.expenses.model.AppDatabase;
 import com.alextsy.expenses.model.Expense;
 import com.alextsy.expenses.model.MainRepository;
@@ -17,6 +18,7 @@ import com.alextsy.expenses.view.ViewMvp;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -73,27 +75,22 @@ public class MainPresenter implements PresenterMvp.PresenterMain {
             return;
         }
 
-        Expense exp = new Expense(getDate(), mViewMain.getAmount(), firstUpperCase(categoryName.toLowerCase()));
+        Expense exp = new Expense(ConvertDate.dateForDB(), mViewMain.getAmount(), firstUpperCase(categoryName.toLowerCase()));
         db.expenseDao().insert(exp);
 
         updateDaySpentAmount();
         updateMonthSpentAmount();
 
+        Toast.makeText(context, "You spent " + mViewMain.getAmount(), Toast.LENGTH_LONG).show();
+
         mViewMain.clearPrice();
 
-        context.startActivity(new Intent(context, DataActivity.class));
+//        context.startActivity(new Intent(context, DataActivity.class));
     }
     //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
     // Supporting methods
     //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-    // Date for db field
-    public String getDate() {
-        Date currentDate = new Date();  // Current date
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()); // Setting date format
-        return sdf.format(currentDate);
-    }
-
     // Money symbol
     public String getMoney(String amount) {
         NumberFormat format = NumberFormat.getCurrencyInstance();

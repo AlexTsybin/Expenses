@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.alextsy.expenses.Utils.ConvertDate;
 import com.alextsy.expenses.model.Expense;
 
 import java.text.NumberFormat;
@@ -39,7 +40,7 @@ public class ExpensesRecyclerAdapter extends RecyclerView.Adapter<ExpensesRecycl
 
     @Override
     public void onBindViewHolder(ExpensesRecyclerAdapter.ViewHolder viewHolder, int position) {
-        viewHolder.current_date.setText(expenses.get(position).getDate());
+        viewHolder.current_date.setText(ConvertDate.dateForList(expenses.get(position).getDate()));
         viewHolder.current_amount.setText(getMoney(position));
         viewHolder.current_descr.setText(expenses.get(position).getCostItem());
     }

@@ -40,7 +40,7 @@ public class DataPresenter implements PresenterMvp.PresenterData {
     }
 
     @Override
-    public void onMenuAddclick(Context context) {
+    public void onMenuAddClick(Context context) {
         context.startActivity(new Intent(context, MainActivity.class));
     }
 

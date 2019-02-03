@@ -27,10 +27,10 @@ public class DataActivity extends AppCompatActivity implements ViewMvp.ViewData 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            finish();
-            return;
-        }
+//        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+//            finish();
+//            return;
+//        }
         setContentView(R.layout.activity_rows);
         ButterKnife.bind(this);
         mPresenterData = new DataPresenter(this);
@@ -59,7 +59,7 @@ public class DataActivity extends AppCompatActivity implements ViewMvp.ViewData 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add: {
-                mPresenterData.onMenuAddclick(this);
+                mPresenterData.onMenuAddClick(this);
                 break;
             }
             case R.id.action_delete_all: {
